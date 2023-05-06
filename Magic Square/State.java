@@ -11,7 +11,31 @@ class State {
  public State( int[] aboard ) {
 
  setHValue(aboard);
+ setPos9(aboard);
+ printState(aboard);
 
+
+ }
+
+
+ //set position of 9
+
+ public void setPos9(int[] arr){
+
+    int count = 0;
+    while(arr[count] != 9 ){
+        count++;
+    }
+
+int indexOf9 = count;
+this.pos9 = indexOf9;
+
+ }
+
+ //get index of 9
+
+ public int getPos9(){
+    return this.pos9;
  }
 
 
@@ -50,6 +74,56 @@ this.hValue = heurestic;
     return this.hValue;
  }
 
+//print contents of state
+
+ public void printState(int[] arr){
+
+    System.out.println("Current State\n");
+
+    System.out.println(arr[0] + " " + arr[1] + " " + arr[2]);
+    System.out.println(arr[3] + " " + arr[4] + " " + arr[5]);
+    System.out.println(arr[6] + " " + arr[7] + " " + arr[8]);
+
+        System.out.println("\n");
+ }
+
+
+
+ //move top 
+
+ public int[] moveTop(int[] arr,State state){
+
+    // verify if 9 can be movedTop
+    int ninePos = state.getPos9();
+    
+    if(ninePos > 2){
+
+        int toBeSwappedWith = arr[ninePos-3];
+
+        int[] newState = new int[9];
+
+       for(int i=0;i<newState.length;i++){
+          
+          if(i == ninePos){
+        newState[i] = toBeSwappedWith;
+          }
+          else if( i == ninePos-3){
+              newState[i] = 9;
+          }else{
+            newState[i] = arr[i];
+          }
+
+       }
+       printState(newState);
+       return newState;
+    }else{
+
+        System.out.println("Cannot move nine on top");
+
+        return arr ;
+    }
+
+ }
 
 
 } 

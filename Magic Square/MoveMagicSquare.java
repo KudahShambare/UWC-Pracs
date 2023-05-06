@@ -7,9 +7,13 @@ public class  MoveMagicSquare{
 
  public static void main(String[] args) {
 
- 	State initial = new State(new int[] {6,9,8,7,1,3,2,5,4});
+ 	int[] initialState =  {6,9,8,7,1,3,2,5,4};
 
- 	System.out.println(initial.getHValue());
+ 	State initial = new State(initialState);
+
+ 	System.out.println(initial.moveTop(initialState,initial));
+
+
 
 
 	}
