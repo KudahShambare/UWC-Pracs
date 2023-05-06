@@ -125,5 +125,48 @@ this.hValue = heurestic;
 
  }
 
+ //move down
+
+ public int[] moveDown(int[] arr, State state){
+
+    //verify if  9 can be moved down
+
+    int ninePos = state.getPos9();
+
+    if(ninePos<5){
+
+        int toBeSwappedWith = arr[ninePos+3];
+        int[] newState = new int[9];
+
+       for(int i=0;i<newState.length;i++){
+          
+          if(i == ninePos){
+        newState[i] = toBeSwappedWith;
+          }
+          else if( i == ninePos+3){
+              newState[i] = 9;
+          }else{
+            newState[i] = arr[i];
+          }
+
+      }
+
+        printState(newState);
+       return newState;
+
+    }
+    else{
+
+
+        System.out.println("Cannot move nine down");
+
+        return arr ;
+
+    }
+
+
+
+ }
+
 
 } 

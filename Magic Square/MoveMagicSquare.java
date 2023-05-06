@@ -11,7 +11,7 @@ public class  MoveMagicSquare{
 
  	State initial = new State(initialState);
 
- 	System.out.println(initial.moveTop(initialState,initial));
+ 	System.out.println(initial.moveDown(initialState,initial));
 
 
 
