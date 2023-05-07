@@ -1,6 +1,6 @@
 import java.lang.Math;
 
-class State {
+class State implements Comparable<State> {
 
  private int hValue;
  private int pos9;
@@ -10,14 +10,26 @@ class State {
 
  public State( int[] aboard ) {
 
+this.board = aboard;
  setHValue(aboard);
  setPos9(aboard);
- printState(aboard);
+ //printState(aboard);
 
 
  }
 
+//comparable interface
+ @Override
+ public int compareTo(State o) {
+ 
+  return Integer.compare(this.getHValue(), o.getHValue());
+  }
 
+//get board
+
+  public int[] getBoard(){
+    return this.board;
+  }
  //set position of 9
 
  public void setPos9(int[] arr){
@@ -76,9 +88,9 @@ this.hValue = heurestic;
 
 //print contents of state
 
- public void printState(int[] arr){
+ public void printState(State state){
 
-    System.out.println("Current State\n");
+     int[] arr = state.board;
 
     System.out.println(arr[0] + " " + arr[1] + " " + arr[2]);
     System.out.println(arr[3] + " " + arr[4] + " " + arr[5]);
@@ -91,21 +103,19 @@ this.hValue = heurestic;
 
  //move top 
 
- public int[] moveTop(int[] arr,State state){
+ public int[] moveTop(State state){
 
-    // verify if 9 can be movedTop
+    int[] arr = state.board;
+
     int ninePos = state.getPos9();
-    
-    if(ninePos > 2){
 
         int toBeSwappedWith = arr[ninePos-3];
-
         int[] newState = new int[9];
 
        for(int i=0;i<newState.length;i++){
           
-          if(i == ninePos){
-        newState[i] = toBeSwappedWith;
+        if(i == ninePos){
+           newState[i] = toBeSwappedWith;
           }
           else if( i == ninePos-3){
               newState[i] = 9;
@@ -114,26 +124,18 @@ this.hValue = heurestic;
           }
 
        }
-       printState(newState);
+       
        return newState;
-    }else{
-
-        System.out.println("Cannot move nine on top");
-
-        return arr ;
-    }
-
+  
  }
 
  //move down
 
- public int[] moveDown(int[] arr, State state){
+ public int[] moveDown( State state){
 
-    //verify if  9 can be moved down
+        int[] arr = state.board;
 
     int ninePos = state.getPos9();
-
-    if(ninePos<5){
 
         int toBeSwappedWith = arr[ninePos+3];
         int[] newState = new int[9];
@@ -150,23 +152,68 @@ this.hValue = heurestic;
           }
 
       }
-
-        printState(newState);
        return newState;
 
-    }
-    else{
+  
+ }
 
+ //move left
 
-        System.out.println("Cannot move nine down");
+  public int[] moveLeft( State state){
 
-        return arr ;
+    int[] arr = state.board;
+    int ninePos = state.getPos9();
 
-    }
+        int toBeSwappedWith = arr[ninePos-1];
+        int[] newState = new int[9];
 
+       for(int i=0;i<newState.length;i++){
+          
+          if(i == ninePos){
+        newState[i] = toBeSwappedWith;
+          }
+          else if( i == ninePos-1){
+              newState[i] = 9;
+          }else{
+            newState[i] = arr[i];
+          }
 
+      }
+       return newState;
 
  }
+
+
+ //move right
+
+  public int[] moveRight( State state){
+
+        int[] arr = state.board;
+    int ninePos = state.getPos9();
+
+
+        int toBeSwappedWith = arr[ninePos+1];
+        int[] newState = new int[9];
+
+       for(int i=0;i<newState.length;i++){
+          
+          if(i == ninePos){
+        newState[i] = toBeSwappedWith;
+          }
+          else if( i == ninePos+1){
+              newState[i] = 9;
+          }else{
+            newState[i] = arr[i];
+          }
+
+      }
+
+       return newState;
+
+  
+
+ }
+
 
 
 } 
